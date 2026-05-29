@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Waldi Webdesign</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;900&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black:   #080B10;
+    --dark:    #0D1117;
+    --navy:    #0F1A2E;
+    --panel:   #111827;
+    --border:  rgba(255,255,255,0.07);
+    --blue:    #2979FF;
+    --blue2:   #448AFF;
+    --glow:    rgba(41,121,255,0.25);
+    --white:   #FFFFFF;
+    --muted:   rgba(255,255,255,0.45);
+    --light:   rgba(255,255,255,0.08);
+  }
+
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--black);
+    color: var(--white);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky; top: 0; z-index: 200;
+    background: rgba(8,11,16,0.92);
+    backdrop-filter: blur(18px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 5%;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 64px;
+  }
+  .logo {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 900;
+    font-size: 1.25rem;
+    letter-spacing: -0.5px;
+    color: var(--white);
+  }
+  .logo span {
+    color: var(--blue);
+  }
+  .nav-right { display: flex; align-items: center; gap: 24px; }
+  .nav-link {
+    color: var(--muted);
+    font-size: 0.85rem;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-link:hover { color: var(--white); }
+  .nav-btn {
+    background: var(--blue);
+    color: var(--white);
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    padding: 9px 20px;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: all 0.2s;
+    box-shadow: 0 0 0 0 var(--glow);
+  }
+  .nav-btn:hover {
+    background: var(--blue2);
+    box-shadow: 0 0 20px var(--glow);
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 88vh;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 80px 5% 60px;
+    position: relative;
+    overflow: hidden;
+    background: radial-gradient(ellipse 80% 60% at 60% 0%, rgba(41,121,255,0.08) 0%, transparent 70%),
+                var(--dark);
+  }
+  .hero-grid-bg {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(41,121,255,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(41,121,255,0.04) 1px, transparent 1px);
+    background-size: 48px 48px;
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 0%, black 20%, transparent 80%);
+  }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 24px;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    width: 24px; height: 1px;
+    background: var(--blue);
+  }
+  .hero h1 {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 900;
+    font-size: clamp(2.6rem, 7vw, 5rem);
+    line-height: 1.05;
+    letter-spacing: -1.5px;
+    color: var(--white);
+    max-width: 720px;
+    margin-bottom: 24px;
+  }
+  .hero h1 .accent {
+    background: linear-gradient(90deg, var(--blue), var(--blue2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero-sub {
+    color: var(--muted);
+    font-size: 1.05rem;
+    line-height: 1.75;
+    max-width: 480px;
+    margin-bottom: 40px;
+  }
+  .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
+  .btn-main {
+    background: var(--blue);
+    color: var(--white);
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    padding: 14px 30px;
+    border-radius: 8px;
+    text-decoration: none;
+    display: inline-flex; align-items: center; gap: 8px;
+    transition: all 0.2s;
+    box-shadow: 0 4px 24px var(--glow);
+  }
+  .btn-main:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 36px rgba(41,121,255,0.45);
+  }
+  .btn-ghost {
+    color: rgba(255,255,255,0.6);
+    font-size: 0.9rem;
+    text-decoration: none;
+    display: inline-flex; align-items: center; gap: 6px;
+    border: 1px solid var(--border);
+    padding: 13px 22px;
+    border-radius: 8px;
+    transition: all 0.2s;
+  }
+  .btn-ghost:hover { color: var(--white); border-color: rgba(255,255,255,0.2); }
+
+  /* ── STATS ── */
+  .stats-bar {
+    background: var(--panel);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    display: flex; flex-wrap: wrap;
+    padding: 0 5%;
+  }
+  .stat {
+    flex: 1 1 120px;
+    padding: 24px 20px;
+    border-right: 1px solid var(--border);
+    text-align: center;
+  }
+  .stat:last-child { border-right: none; }
+  .stat strong {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: var(--blue);
+    display: block;
+  }
+  .stat span { font-size: 0.78rem; color: var(--muted); margin-top: 3px; display: block; }
+
+  /* ── SECTION BASE ── */
+  .section { padding: 80px 5%; }
+  .sec-tag {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 12px;
+  }
+  .sec-title {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 900;
+    font-size: clamp(1.7rem, 4vw, 2.6rem);
+    letter-spacing: -0.8px;
+    line-height: 1.15;
+    color: var(--white);
+    max-width: 480px;
+    margin-bottom: 48px;
+  }
+
+  /* ── SERVICES ── */
+  .services { background: var(--dark); }
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+  }
+  .svc {
+    background: var(--panel);
+    padding: 32px 26px;
+    transition: background 0.2s;
+  }
+  .svc:hover { background: #161d2d; }
+  .svc-num {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--blue);
+    letter-spacing: 2px;
+    margin-bottom: 18px;
+  }
+  .svc-icon {
+    font-size: 1.8rem;
+    margin-bottom: 14px;
+    display: block;
+  }
+  .svc h3 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 8px;
+  }
+  .svc p { font-size: 0.83rem; color: var(--muted); line-height: 1.65; }
+
+  /* ── FOR WHO ── */
+  .forwho { background: var(--navy); }
+  .who-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 12px;
+  }
+  .who-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px 16px;
+    text-align: center;
+    transition: all 0.2s;
+    cursor: default;
+  }
+  .who-card:hover {
+    background: rgba(41,121,255,0.1);
+    border-color: rgba(41,121,255,0.4);
+    transform: translateY(-3px);
+  }
+  .who-card .wi { font-size: 2rem; display: block; margin-bottom: 10px; }
+  .who-card p {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: rgba(255,255,255,0.8);
+  }
+
+  /* ── WHY ── */
+  .whyus { background: var(--dark); }
+  .why-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 14px;
+  }
+  .why-item {
+    display: flex; gap: 16px;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 22px 20px;
+    transition: border-color 0.2s;
+  }
+  .why-item:hover { border-color: rgba(41,121,255,0.35); }
+  .why-dot {
+    width: 32px; height: 32px; flex-shrink: 0;
+    background: rgba(41,121,255,0.15);
+    border: 1px solid rgba(41,121,255,0.3);
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--blue);
+    font-size: 0.9rem;
+    margin-top: 2px;
+  }
+  .why-item h4 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 5px;
+  }
+  .why-item p { font-size: 0.82rem; color: var(--muted); line-height: 1.6; }
+
+  /* ── CTA ── */
+  .cta-section {
+    background: var(--navy);
+    border-top: 1px solid var(--border);
+    padding: 90px 5%;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-glow {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 500px; height: 300px;
+    background: radial-gradient(ellipse, rgba(41,121,255,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .cta-section h2 {
+    font-family: 'Outfit', sans-serif;
+    font-weight: 900;
+    font-size: clamp(1.8rem, 5vw, 3rem);
+    letter-spacing: -1px;
+    color: var(--white);
+    margin-bottom: 16px;
+    position: relative;
+  }
+  .cta-section p {
+    color: var(--muted);
+    font-size: 1rem;
+    max-width: 400px;
+    margin: 0 auto 36px;
+    line-height: 1.7;
+    position: relative;
+  }
+  .cta-btn {
+    background: linear-gradient(135deg, var(--blue), var(--blue2));
+    color: var(--white);
+    font-family: 'Outfit', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 16px 40px;
+    border-radius: 8px;
+    text-decoration: none;
+    display: inline-flex; align-items: center; gap: 10px;
+    box-shadow: 0 4px 32px var(--glow);
+    transition: all 0.2s;
+    position: relative;
+  }
+  .cta-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 48px rgba(41,121,255,0.5);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--black);
+    border-top: 1px solid var(--border);
+    padding: 28px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  footer .logo { font-size: 1rem; }
+  footer p { font-size: 0.8rem; color: var(--muted); }
+
+  @media (max-width: 560px) {
+    .nav-link { display: none; }
+    .hero { min-height: auto; padding: 60px 5% 50px; }
+    .stat { flex: 1 1 50%; }
+    footer { flex-direction: column; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">Waldi<span>.</span>Webdesign</div>
+  <div class="nav-right">
+    <a href="#leistungen" class="nav-link">Leistungen</a>
+    <a href="#kunden" class="nav-link">Kunden</a>
+    <a href="https://wa.me/" class="nav-btn">Demo anfragen →</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid-bg"></div>
+  <div class="hero-eyebrow">Webdesign für lokale Unternehmen</div>
+  <h1>Ihre Webseite.<br><span class="accent">Professionell.<br>Schnell. Bezahlbar.</span></h1>
+  <p class="hero-sub">Moderne, mobiloptimierte Webseiten für Friseure, Restaurants, Werkstätten und Beauty-Studios — fertig in 48 Stunden.</p>
+  <div class="hero-actions">
+    <a href="https://wa.me/" class="btn-main">💬 Kostenlose Demo anfragen</a>
+    <a href="#leistungen" class="btn-ghost">Leistungen ansehen →</a>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat"><strong>48h</strong><span>Fertig in 2 Tagen</span></div>
+  <div class="stat"><strong>100%</strong><span>Mobil optimiert</span></div>
+  <div class="stat"><strong>0 €</strong><span>Demo gratis</span></div>
+  <div class="stat"><strong>⭐ 5.0</strong><span>Kundenzufriedenheit</span></div>
+</div>
+
+<!-- SERVICES -->
+<section class="section services" id="leistungen">
+  <div class="sec-tag">Was wir bieten</div>
+  <h2 class="sec-title">Alles, was Ihr Unternehmen braucht</h2>
+  <div class="services-grid">
+    <div class="svc">
+      <div class="svc-num">01</div>
+      <span class="svc-icon">🖥️</span>
+      <h3>Moderne Webseite</h3>
+      <p>Zeitloses, professionelles Design, das Ihre Kunden sofort überzeugt.</p>
+    </div>
+    <div class="svc">
+      <div class="svc-num">02</div>
+      <span class="svc-icon">📱</span>
+      <h3>Mobile Optimierung</h3>
+      <p>Perfekte Darstellung auf Handy, Tablet und Desktop.</p>
+    </div>
+    <div class="svc">
+      <div class="svc-num">03</div>
+      <span class="svc-icon">📍</span>
+      <h3>Google Maps Präsenz</h3>
+      <p>Lokale Sichtbarkeit — Kunden finden Sie sofort in der Nähe.</p>
+    </div>
+    <div class="svc">
+      <div class="svc-num">04</div>
+      <span class="svc-icon">💬</span>
+      <h3>WhatsApp Kontakt</h3>
+      <p>Ein Klick — direkter Draht zu Ihren Kunden.</p>
+    </div>
+    <div class="svc">
+      <div class="svc-num">05</div>
+      <span class="svc-icon">⚡</span>
+      <h3>Schnelle Ladezeiten</h3>
+      <p>Kein Warten. Kunden bleiben — und kaufen.</p>
+    </div>
+    <div class="svc">
+      <div class="svc-num">06</div>
+      <span class="svc-icon">🎯</span>
+      <h3>Demo-Webseite gratis</h3>
+      <p>Erst sehen, dann entscheiden. Kein Risiko, keine Kosten.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOR WHO -->
+<section class="section forwho" id="kunden">
+  <div class="sec-tag">Zielgruppe</div>
+  <h2 class="sec-title">Für wen bauen wir?</h2>
+  <div class="who-grid">
+    <div class="who-card"><span class="wi">✂️</span><p>Friseursalons</p></div>
+    <div class="who-card"><span class="wi">🍽️</span><p>Restaurants</p></div>
+    <div class="who-card"><span class="wi">💅</span><p>Beauty Studios</p></div>
+    <div class="who-card"><span class="wi">🔧</span><p>Werkstätten</p></div>
+    <div class="who-card"><span class="wi">🏪</span><p>Kleine Shops</p></div>
+    <div class="who-card"><span class="wi">🛎️</span><p>Dienstleister</p></div>
+  </div>
+</section>
+
+<!-- WHY US -->
+<section class="section whyus">
+  <div class="sec-tag">Warum Waldi?</div>
+  <h2 class="sec-title">Ihr klarer Vorteil</h2>
+  <div class="why-grid">
+    <div class="why-item">
+      <div class="why-dot">✓</div>
+      <div><h4>Schnelle Erstellung</h4><p>Ihre Webseite ist in 48 Stunden fertig und live.</p></div>
+    </div>
+    <div class="why-item">
+      <div class="why-dot">✓</div>
+      <div><h4>Modernes Design</h4><p>Individuell für Ihr Unternehmen — kein Template-Look.</p></div>
+    </div>
+    <div class="why-item">
+      <div class="why-dot">✓</div>
+      <div><h4>Einfache Kommunikation</h4><p>Alles per WhatsApp — unkompliziert und direkt.</p></div>
+    </div>
+    <div class="why-item">
+      <div class="why-dot">✓</div>
+      <div><h4>Google-Ready</h4><p>Optimiert für lokale Suche und Google Maps.</p></div>
+    </div>
+    <div class="why-item">
+      <div class="why-dot">✓</div>
+      <div><h4>Kostenlose Demo</h4><p>Wir zeigen Ihnen ein Beispiel — ohne Verpflichtung.</p></div>
+    </div>
+    <div class="why-item">
+      <div class="why-dot">✓</div>
+      <div><h4>Faire Preise</h4><p>Professionell und erschwinglich für jeden Betrieb.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="cta-glow"></div>
+  <h2>Jetzt Demo-Webseite anfragen</h2>
+  <p>Kostenlos, unverbindlich — wir zeigen Ihnen, wie Ihre neue Webseite aussieht.</p>
+  <a href="https://wa.me/" class="cta-btn">📱 Auf WhatsApp schreiben →</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="logo">Waldi<span>.</span>Webdesign</div>
+  <p>© 2025 Waldi Webdesign · Webdesign für lokale Unternehmen</p>
+</footer>
+
+</body>
+</html>
